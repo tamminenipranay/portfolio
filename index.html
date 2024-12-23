@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pranay's Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome to My Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#chat">Chat</a></li>
+                </ul>
+                
+            </nav>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>Hi! I'm Pranay Tammineni, currently pursuing BTech in Artificial Intelligence and Machine Learning at MLRIT. I'm a 3rd-year student passionate about web development, technology, and problem-solving.</p>
+            <p>Languages Known: English, Telugu, Hindi.</p>
+            <p>I am a cricket player and have represented teams under the Board of Control for Cricket in India (BCCI). I won the Under-14 and Under-16 state-level cups and the Under-19 cup under the Delhi board.</p>
+            <p>Email: <a href="mailto:pranaytammineni@gmail.com">pranaytammineni@gmail.com</a></p>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+            <ul>
+                <li><strong>Semi-Humanoid Robot:</strong> Developed a semi-humanoid robot capable of performing interactive tasks and basic automation.</li>
+                <li><strong>Travel Website:</strong> Created a comprehensive travel website providing trip planning, booking features, and a seamless return journey in one package.</li>
+                <li><strong>Agricultural Future Price Prediction:</strong> Built a predictive model to forecast agricultural prices using machine learning techniques.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <ul>
+                <li>Python</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>jQuery</li>
+                <li>Prompt Engineering</li>
+                <li>Data Analytics</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="chat">
+        <div class="container">
+            <h2>Chat with Me</h2>
+            <div id="chatBox">
+                <div id="messages"></div>
+                <form id="chatForm">
+                    <input type="text" id="chatInput" placeholder="Type your message here...">
+                    <button type="button" id="sendButton">Send</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Pranay Tammineni. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+           
+            $('#sendButton').click(function() {
+                const message = $('#chatInput').val();
+                if (message.trim() !== '') {
+                    $('#messages').append(`<div class='message'><p>${message}</p></div>`);
+                    $('#chatInput').val('');
+                }
+            });
+
+           
+            $('#contactForm').submit(function(event) {
+                event.preventDefault();
+                const formData = {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    message: $('#message').val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/submit_contact',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        alert('Message sent successfully!');
+                    },
+                    error: function(error) {
+                        alert('Error sending message. Please try again later.');
+                    }
+                });
+            });
+        });
+    </script>
+    <form action="submit_contact.php" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+    
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+    
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea><br><br>
+    
+        <input type="submit" value="Submit">
+    </form>
+    
+</body>
+</html>
